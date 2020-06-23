@@ -3,13 +3,13 @@ package com.ais.movie.enums;
 import lombok.Getter;
 
 @Getter
-public enum Genero {
+public enum Sexo {
 
 	M("Masculino"), F("Feminino");
 	
 	private String descricao;
 	
-	private Genero(String descricao) {
+	private Sexo(String descricao) {
 		this.descricao = descricao;
 	}
 }

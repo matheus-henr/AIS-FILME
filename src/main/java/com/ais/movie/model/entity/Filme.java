@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.ais.movie.enums.Categoria;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,6 +41,7 @@ public class Filme {
 	      {@JoinColumn(name="integrante_id")})
 	private List<Integrante> integrantes;
 	private Date dataLancamento;
+	private Categoria categoria;
 	
 	@Override
 	public int hashCode() {
