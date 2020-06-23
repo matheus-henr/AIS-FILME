@@ -78,6 +78,7 @@ public class FilmeService {
 		return filmeMapper.toDTO(filmeRepository.save(filme));
 	}
 	
+	@Transactional()
     public void deletar(Long id) {
     	buscarFilmePorId(id);
     	

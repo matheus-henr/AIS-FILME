@@ -62,7 +62,7 @@ public class FilmeController {
 	}
 	
 	@GetMapping("/avaliacao/page/{page}/total/{totalElementos}")
-	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(int page, int totalElementos) {
+	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(@PathVariable int page, @PathVariable int totalElementos) {
 		Page<FilmePreviewDTO> filmes = filmeService.buscarFilmeOrdenadoPorAvalicao(totalElementos, page);
 		
 		return ResponseEntity.ok(filmes);
