@@ -4,6 +4,7 @@ import java.net.URI;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,8 +32,9 @@ public class FilmeController {
 	private final FilmeService filmeService;
 	
 	@PostMapping
-	public ResponseEntity<FilmeDTO> salvar(@RequestBody FilmeDTO dto) {
-		FilmeDTO filmeDTO = filmeService.salvar(dto);
+	@ApiOperation(value = "salvar um novo filme")
+	public ResponseEntity<FilmeDTO> salvar(@RequestBody FilmeDTO filme) {
+		FilmeDTO filmeDTO = filmeService.salvar(filme);
 		
 		 URI uri = ServletUriComponentsBuilder
 					.fromCurrentRequest()
@@ -44,9 +46,9 @@ public class FilmeController {
 	}
 	
 	@PutMapping("/id/{id}")
-	@ApiOperation(value = "Obtém o filme por id")
-	public ResponseEntity<FilmeDTO> atualizar(@PathVariable Long id, @RequestBody FilmeDTO dto) {
-		FilmeDTO filmeDTO = filmeService.atualizar(id, dto);
+	@ApiOperation(value = "Atualiza um filme existente")
+	public ResponseEntity<FilmeDTO> atualizar(@PathVariable Long id, @RequestBody FilmeDTO filme) {
+		FilmeDTO filmeDTO = filmeService.atualizar(id, filme);
 		
 		 URI uri = ServletUriComponentsBuilder
 					.fromCurrentRequest()
@@ -66,11 +68,26 @@ public class FilmeController {
 		return ResponseEntity.ok(filmes);
 	}
 	
+	@GetMapping("/id/{id}")
+	public ResponseEntity<FilmeDTO> obterFilmePorId(@PathVariable Long id) {
+		FilmeDTO filme = filmeService.buscarFilmePorId(id);
+		
+		return ResponseEntity.ok(filme);
+	}
+	
 	@GetMapping("/avaliacao/page/{page}/total/{totalElementos}")
 	@ApiOperation(value = "Obtém uma lista paginada de filmes ordenada por avaliação")
 	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(@PathVariable int page, @PathVariable int totalElementos) {
 		Page<FilmePreviewDTO> filmes = filmeService.buscarFilmeOrdenadoPorAvalicao(totalElementos, page);
 		
 		return ResponseEntity.ok(filmes);
+	}
+	
+	@DeleteMapping("/id/{id}")
+	@ApiOperation(value = "Deletar um filme existente")
+	public ResponseEntity<Void> deletarFilme(@PathVariable Long id) {
+		filmeService.deletar(id);
+		
+		return ResponseEntity.noContent().build();
 	}
 }
