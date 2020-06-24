@@ -1,8 +1,10 @@
 package com.ais.movie.model.entity;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +18,7 @@ import javax.persistence.Table;
 import com.ais.movie.enums.Categoria;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -26,12 +29,14 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Filme {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String nome;
+	@Column(length = 500)
 	private String sinopse;
 	private Integer avaliacao;
 	private Integer duracao;
@@ -44,7 +49,7 @@ public class Filme {
 	    {@JoinColumn(name="filme_id")}, inverseJoinColumns =
 	      {@JoinColumn(name="integrante_id")})
 	private List<Integrante> integrantes;
-	private Date dataLancamento;
+	private LocalDate dataLancamento;
 	private Categoria categoria;
 	
 	@Override

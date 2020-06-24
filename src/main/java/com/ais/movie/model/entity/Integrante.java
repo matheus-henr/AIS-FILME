@@ -1,6 +1,6 @@
 package com.ais.movie.model.entity;
 
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +10,10 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import com.ais.movie.enums.Funcao;
+import com.ais.movie.enums.Sexo;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +24,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class Integrante {
 	
 	@Id
@@ -31,6 +34,7 @@ public class Integrante {
 	private String sobreNome;
 	private String dataNascimento;
 	@ManyToMany(mappedBy="integrantes")
-	private Set<Filme> filmes;
+	private List<Filme> filmes;
 	private Funcao funcao;
+	private Sexo sexo;
 }
