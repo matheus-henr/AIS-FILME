@@ -40,7 +40,7 @@ public class FilmeService {
 	}
 	
 	public Page<FilmePreviewDTO> buscarFilmePorCategoriaPreview(Categoria categoria, int totalElmentos, int pagina) {
-		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.ASC);
+		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.ASC, "nome");
 		
 		final Page<Filme> filmesPage = filmeRepository.findByCategoria(categoria, page)
 					.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
@@ -59,7 +59,7 @@ public class FilmeService {
 	} 
 	
 	public Page<FilmePreviewDTO> buscarFilmeOrdenadoPorAvalicao(int totalElmentos, int pagina) {
-		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.DESC, "dataLancamento");
+		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.DESC, "avaliacao");
 		
 		Optional<Page<Filme>> filmeOptional = Optional.of(filmeRepository.findAll(page));
 		
@@ -81,6 +81,7 @@ public class FilmeService {
 		return filmeMapper.toDTO(filmeRepository.save(filme));
 	}
 	
+	@Transactional()
     public void deletar(Long id) {
     	buscarFilmePorId(id);
     	

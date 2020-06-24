@@ -1,7 +1,7 @@
 package com.ais.movie.model.mapper;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -29,16 +29,18 @@ public class FilmeMapper implements IMapper<Filme, FilmeDTO>{
 
 	@Override
 	public List<Filme> toEntity(List<FilmeDTO> dtos) {
-		List<Filme> filmes = new ArrayList<>();
-		modelMapper.map(dtos, filmes);
-		return filmes;
+		return dtos
+				.stream()
+				.map(filme -> toEntity(filme))
+				.collect(Collectors.toList());
 	}
 
 	@Override
 	public List<FilmeDTO> toDTO(List<Filme> entities) {
-		List<FilmeDTO> filmesDto = new ArrayList<>();
-		modelMapper.map(entities, filmesDto);
-		return filmesDto;
+		return entities
+				.stream()
+				.map(filme -> toDTO(filme))
+				.collect(Collectors.toList());
 	}
 
 	
