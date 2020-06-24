@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import com.ais.movie.enums.Funcao;
 
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name="integrante")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -30,6 +32,5 @@ public class Integrante {
 	private String dataNascimento;
 	@ManyToMany(mappedBy="integrantes")
 	private Set<Filme> filmes;
-	private Filme filme;
 	private Funcao funcao;
 }

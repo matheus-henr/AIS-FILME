@@ -1,6 +1,7 @@
 package com.ais.movie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -58,10 +59,12 @@ public class FilmeService {
 	} 
 	
 	public Page<FilmePreviewDTO> buscarFilmeOrdenadoPorAvalicao(int totalElmentos, int pagina) {
-		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.DESC);
+		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.DESC, "dataLancamento");
 		
-		final Page<Filme> filmesPage = filmeRepository.findByAvalicaoOrderByCreatedASC(page)
-					.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
+		Optional<Page<Filme>> filmeOptional = Optional.of(filmeRepository.findAll(page));
+		
+		final Page<Filme> filmesPage = filmeOptional
+				.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
 		
 		List<FilmePreviewDTO> filmes = filmePreviewMapper.toDTO(filmesPage.getContent());
 		
@@ -78,7 +81,6 @@ public class FilmeService {
 		return filmeMapper.toDTO(filmeRepository.save(filme));
 	}
 	
-	@Transactional()
     public void deletar(Long id) {
     	buscarFilmePorId(id);
     	

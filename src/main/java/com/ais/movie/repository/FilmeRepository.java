@@ -15,6 +15,5 @@ public interface FilmeRepository  extends JpaRepository<Filme, Long>{
 
 	Optional<Page<Filme>> findByCategoria(Categoria categoria, Pageable page);
 
-	Optional<Page<Filme>> findByAvalicaoOrderByCreatedASC(Pageable page);
-
+	
 }

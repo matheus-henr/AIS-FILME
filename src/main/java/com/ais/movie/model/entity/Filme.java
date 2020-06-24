@@ -3,6 +3,7 @@ package com.ais.movie.model.entity;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import com.ais.movie.enums.Categoria;
 
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
+@Table(name="filme")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,7 +35,9 @@ public class Filme {
 	private String sinopse;
 	private Integer avaliacao;
 	private Integer duracao;
+	@ElementCollection
 	private List<String> idiomaDisponivel;
+	@ElementCollection
 	private List<String> legendaDisponivel;
 	@ManyToMany
 	    @JoinTable(name="filme_has_integrante", joinColumns =
