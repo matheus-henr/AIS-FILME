@@ -18,8 +18,11 @@ import com.ais.movie.model.dto.FilmeDTO;
 import com.ais.movie.model.dto.FilmePreviewDTO;
 import com.ais.movie.service.FilmeService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
+@Api(tags = "Cliente")
 @RestController
 @RequestMapping("/filme")
 @RequiredArgsConstructor
@@ -41,6 +44,7 @@ public class FilmeController {
 	}
 	
 	@PutMapping("/id/{id}")
+	@ApiOperation(value = "Obtém o filme por id")
 	public ResponseEntity<FilmeDTO> atualizar(@PathVariable Long id, @RequestBody FilmeDTO dto) {
 		FilmeDTO filmeDTO = filmeService.atualizar(id, dto);
 		
@@ -54,6 +58,7 @@ public class FilmeController {
 	}
 	
 	@GetMapping("/categoria/{categoria}/page/{page}/total/{totalElementos}")
+	@ApiOperation(value = "Obtém uma lista paginada de filmes por categoria")
 	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(@PathVariable Categoria categoria, @PathVariable Integer page,
 			@PathVariable Integer totalElementos) {
 		Page<FilmePreviewDTO> filmes = filmeService.buscarFilmePorCategoriaPreview(categoria, totalElementos, page);
@@ -62,6 +67,7 @@ public class FilmeController {
 	}
 	
 	@GetMapping("/avaliacao/page/{page}/total/{totalElementos}")
+	@ApiOperation(value = "Obtém uma lista paginada de filmes ordenada por avaliação")
 	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(@PathVariable int page, @PathVariable int totalElementos) {
 		Page<FilmePreviewDTO> filmes = filmeService.buscarFilmeOrdenadoPorAvalicao(totalElementos, page);
 		
