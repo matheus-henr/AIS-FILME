@@ -25,7 +25,7 @@ public class AvaliacaoService {
 	private final AvaliacaoMapper avaliacaoMapper;
 	
 	@Transactional
-	public void avaliar(AvaliacaoDTO avaliacaoDTO, Long idFilme) {
+	public boolean avaliar(AvaliacaoDTO avaliacaoDTO, Long idFilme) {
 		Avaliacao avaliacao = avaliacaoMapper.toEntity(avaliacaoDTO);
 		Filme filme = Filme.builder()
 				.id(idFilme)
@@ -38,6 +38,8 @@ public class AvaliacaoService {
 		}
 		
 		avaliacaoRepository.save(avaliacao);
+		
+		return true;
 	}
 	
 	public double consultarNota(Long idFilme) {
