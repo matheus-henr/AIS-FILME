@@ -1,6 +1,7 @@
 package com.ais.movie.model.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class AvaliacaoDTO {
 
-	private Integer id;
 	private Integer nota;
 }
