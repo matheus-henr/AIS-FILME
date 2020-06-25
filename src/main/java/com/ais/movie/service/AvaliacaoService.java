@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 import com.ais.movie.exception.NotFoundException;
 import com.ais.movie.model.dto.AvaliacaoDTO;
 import com.ais.movie.model.entity.Avaliacao;
-import com.ais.movie.model.entity.AvaliacaoRepository;
 import com.ais.movie.model.entity.Filme;
 import com.ais.movie.model.mapper.AvaliacaoMapper;
+import com.ais.movie.repository.AvaliacaoRepository;
 
 import lombok.RequiredArgsConstructor;
 

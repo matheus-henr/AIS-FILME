@@ -14,7 +14,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import com.ais.movie.model.dto.AvaliacaoDTO;
 import com.ais.movie.model.entity.Avaliacao;
-import com.ais.movie.model.entity.AvaliacaoRepository;
+import com.ais.movie.repository.AvaliacaoRepository;
 
 @SpringBootTest
 public class AvaliacaoServiceTest {
