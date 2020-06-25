@@ -15,3 +15,10 @@
 
 *Swagger da API* [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
 > Caso esteja rodando a aplicação local na porta 8080
+
+**Docker**
+>Necessário ter o docker já configurado. caso não tenha, [clique aqui](https://www.hostinger.com.br/tutoriais/install-docker-ubuntu).
+
+ - mvn package
+ - docker build -t matheus/aisfilme .
+ - docker run -p 8080:8080  matheus/aisfilme
