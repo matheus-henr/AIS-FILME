@@ -125,10 +125,7 @@ public class FilmeDBService {
 	  
 	  filmeRepository.saveAll(filmes);
 	  integranteRepository.saveAll(integrantes);
-	  
-	  
-	 AvaliacaoDTO avaliacaoVindadores = AvaliacaoDTO.builder().nota(9).build();
-	 avaliacaoService.avaliar(avaliacaoVindadores, osVingadores.getId());
+	
  		
 	}
 	
