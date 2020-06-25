@@ -1,7 +1,6 @@
 package com.ais.movie.model.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -38,7 +37,6 @@ public class Filme {
 	private String nome;
 	@Column(length = 500)
 	private String sinopse;
-	private Integer avaliacao;
 	private Integer duracao;
 	@ElementCollection
 	private List<String> idiomaDisponivel;

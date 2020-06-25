@@ -25,6 +25,14 @@ public class ControllerExceptionHandler  extends ResponseEntityExceptionHandler{
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
 	}
+    
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorHandler> illegalArgument(IllegalArgumentException e, HttpServletRequest request) {
+    	log.error(e.getMessage());
+		ErrorHandler err = new ErrorHandler(HttpStatus.BAD_REQUEST.value(), e.getMessage(), System.currentTimeMillis());
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
 
  
 }

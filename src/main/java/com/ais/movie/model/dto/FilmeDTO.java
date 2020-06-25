@@ -3,8 +3,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.ais.movie.model.entity.Integrante;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,7 @@ public class FilmeDTO implements Serializable {
 	private Long id;
 	private String nome;
 	private String sinopse;
-	private int avaliacao;
+	private double avaliacao;
 	private int duracao;
 	private List<String> idiomaDisponivel;
 	private List<String> legendaDisponivel;

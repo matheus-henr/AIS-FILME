@@ -1,7 +1,6 @@
 package com.ais.movie.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -30,6 +29,7 @@ public class FilmeService {
 	private final FilmeRepository filmeRepository;
 	private final FilmeMapper filmeMapper;
 	private final FilmePreviewMapper filmePreviewMapper;
+	private final AvaliacaoService avaliacaoService;
 	
 	@Transactional()
 	public FilmeDTO salvar(FilmeDTO dto) {
@@ -46,6 +46,7 @@ public class FilmeService {
 					.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
 		
 		List<FilmePreviewDTO> filmes = filmePreviewMapper.toDTO(filmesPage.getContent());
+		setarAvaliacao(filmes);
 		
 		return new PageImpl<>(filmes, page, filmesPage.getTotalElements());
 	} 
@@ -55,21 +56,13 @@ public class FilmeService {
 		final Filme filme = filmeRepository.findById(id)
 					.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
 		
-		return filmeMapper.toDTO(filme);
+		
+		FilmeDTO filmeDTO = filmeMapper.toDTO(filme);
+		setarAvaliacao(filmeDTO);
+		
+		return filmeDTO;
 	} 
 	
-	public Page<FilmePreviewDTO> buscarFilmeOrdenadoPorAvalicao(int totalElmentos, int pagina) {
-		Pageable page = PageRequest.of(pagina, totalElmentos, Sort.Direction.DESC, "avaliacao");
-		
-		Optional<Page<Filme>> filmeOptional = Optional.of(filmeRepository.findAll(page));
-		
-		final Page<Filme> filmesPage = filmeOptional
-				.orElseThrow(() -> new NotFoundException("Nenhum recurso encontrado"));
-		
-		List<FilmePreviewDTO> filmes = filmePreviewMapper.toDTO(filmesPage.getContent());
-		
-		return new PageImpl<>(filmes, page, filmesPage.getTotalElements());
-	} 
 	
 	@Transactional()
 	public FilmeDTO atualizar(long id , FilmeDTO dto) {
@@ -87,4 +80,13 @@ public class FilmeService {
     	
     	filmeRepository.deleteById(id);
     }
+	
+	private void setarAvaliacao(List<FilmePreviewDTO> filmes) {
+			filmes.parallelStream().forEach(filme -> filme.setAvaliacao(avaliacaoService.consultarNota(filme.getId())));
+		
+	}
+
+	private void setarAvaliacao(FilmeDTO filme) {
+		filme.setAvaliacao(avaliacaoService.consultarNota(filme.getId()));
+	}
 }

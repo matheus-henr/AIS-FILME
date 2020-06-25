@@ -23,7 +23,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 
-@Api(tags = "Cliente")
+@Api(tags = "Filme")
 @RestController
 @RequestMapping("/filme")
 @RequiredArgsConstructor
@@ -73,14 +73,6 @@ public class FilmeController {
 		FilmeDTO filme = filmeService.buscarFilmePorId(id);
 		
 		return ResponseEntity.ok(filme);
-	}
-	
-	@GetMapping("/avaliacao/page/{page}/total/{totalElementos}")
-	@ApiOperation(value = "Obtém uma lista paginada de filmes ordenada por avaliação")
-	public ResponseEntity<Page<FilmePreviewDTO>> obterFilmesPorCategoria(@PathVariable int page, @PathVariable int totalElementos) {
-		Page<FilmePreviewDTO> filmes = filmeService.buscarFilmeOrdenadoPorAvalicao(totalElementos, page);
-		
-		return ResponseEntity.ok(filmes);
 	}
 	
 	@DeleteMapping("/id/{id}")
